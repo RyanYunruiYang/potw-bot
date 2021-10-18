@@ -1,74 +1,71 @@
-# APACHE LICENSE
-# Copyright 2020 Stuart Paterson
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-# External Packages
+# external Packages
 import os
 import discord
+import yaml
 from dotenv import load_dotenv
+from discord.ext import commands
 
-# Local Files
+# local Files
 import utils
 
-# Create the bot
+# create the bot
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-client = discord.Client()
+bot = commands.Bot(command_prefix="!")
 
+# load potw yaml file
+potw_file = open('potw.yaml')
+potw_contents = yaml.load(potw_file, Loader = yaml.FullLoader)
+current_potw = potw_contents['current-potw']
 
-@client.event
-async def on_ready():
-    # Triggered when starting up the bot
-    print(f'{client.user} has connected to Discord!')
-
-
-@client.event
-async def on_member_update(before, after):
-    if str(before.status) == "offline" and str(after.status) == "online":
-        # When a user comes online
-        channel = utils.get_channel_by_name(client, after.guild, 'general')
-        try:
-            # Send your message when a user comes online here!
-            pass
-        except discord.errors.Forbidden:
-            pass
-
-
-@client.event
+@bot.event
 async def on_message(message):
-    if message.author == client.user:
-        # Ignore messages this bot sends
-        return
+    await bot.process_commands(message)
 
-    current_channel = message.channel
+'''
+@bot.command()
+async def ping(ctx):
+    await ctx.channel.send("pong")
 
-    if message.content and len(message.content) > 1 and message.content[0] == '!':
-        # First we extract the message after the ! then split it on spaces to
-        # get a list or the arguments the user gave
-        message_text = message.content[1:]
-        split_message = message_text.split(" ")
-        command = split_message[0]
+@bot.command(name="ping")
+async def functionnamewithnocontext(ctx):
+    await ctx.channel.send("pong")
 
-        if command == "test":
-            response = "test successful"
-            await current_channel.send(response)
-        elif command == "stop":
-            await client.logout()
-        # elif command == "foo":
-        #     # Add your extra commands in blocks like this!
-        #     pass
+@bot.command()
+async def print(ctx, *args):
+    response = ""
 
-# Run the bot
-client.run(TOKEN)
+    for arg in args:
+        response = response + " " + arg
+
+    await ctx.channel.send(response)
+
+'''
+
+@bot.command(brief="Print the current POTW")
+async def potw(ctx):
+    await ctx.channel.send(current_potw['text'])
+
+
+@bot.command(brief="Submit answer to the current POTW")
+async def submit(ctx, arg):
+    if current_potw['simple-solution'] == True:
+        if arg == current_potw['solution']:
+            # assign points
+            await ctx.channel.send("Your solution was correct; you have gained " + str(current_potw['points']) + " points!")
+    else:
+        # send solution to mods
+        await ctx.channel.send("Thanks! Your solution was sent to the mods for review.")
+
+'''
+@bot.command()
+@commands.has_rile('Mod')
+async def assign_point(ctx, user, pointvalue):
+    # add point value to database
+    await ctx.channel.send(str(pointvalue) + " has been assigned to user " + user)
+'''
+
+# run the bot
+bot.run(TOKEN)
+
+

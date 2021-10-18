@@ -1,0 +1,62 @@
+---
+current-potw:
+  field: Linguistics
+  author: David Garsten '23
+  proposed-date: 9/25/2021
+  effective-date: 10/18/2021
+  text: |
+    Tone is very important in the East African language Maasai. Vowels written with an acúte accent have high tone, those with a gràve accent have low tone, and those without an accent have mid tone.
+
+    (Pronunciation guide: 
+    ɔ = "awe"
+    ɛ = "let"
+    ɪ = "bit"
+    ʊ = "hood"
+    ŋ = "song")
+
+    Here are some sentences in Maasai: 
+
+    1) éósh ɔlmʊraní ɔlásʊráɪ̀
+    2) áadɔ́l ɔlasʊráɪ́
+    3) áaósh ɔlmʊraní
+    4) ɪ́dɔ́l ɔlmʊránì
+    5) íóshokí ɔlmʊránì ɔlásʊráɪ̀
+    6) ádúŋokí ɔlmʊránì ɔlcɛtá
+    7) ádúŋ ɔlcɛtá
+    8) áaduŋokí ɔlmʊraní ɔlcɛtá
+    9) áadúŋ ɔlmʊraní
+    10) édúŋ ɔlmʊraní
+
+    Match them to their English translations: 
+
+    A) The warrior cuts me.
+    B) The warrior cuts the tree for me.
+    C) The warrior cuts it.
+    D) I cut the tree for the warrior.
+    E) The warrior hits me.
+    F) You see the warrior.
+    G) The warrior hits the snake.
+    H) The snake sees me.
+    I) You hit the snake for the warrior.
+    J) I cut the tree.
+  simple-solution: False
+  solution: 1G 2H 3E 4F 5I 6D 7J 8B 9A 10C
+  points: 5
+
+# past problems
+
+potw-example:
+  field: CS
+  author: Jewon Im 
+  proposed-date: 9/25/2021
+  effective-date: 9/25/2021
+  text: |
+    What does Python lack that most languages use at the end of each line?
+  simple-solution: True
+  solution: semicolon
+  points: 1
+
+
+
+
+
