@@ -1,9 +1,19 @@
----
-yim#5288:
-  points: 1
-  solved-list: 
-    - potw-example
-
-jewon#5887:
-  points: 0
+- points: 6
   solved-list:
+  - 1
+  userID: 270207607149428736
+  username: yim#5288
+- points: 0
+  solved-list: null
+  userID: 620367434595172422
+  username: jewon#5887
+- points: 5
+  solved-list:
+  - 1
+  userID: 691036613404262411
+  username: null
+- points: 1
+  solved-list:
+  - 1
+  userID: 624429851004108823
+  username: null
