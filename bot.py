@@ -71,6 +71,7 @@ async def leaderboard(ctx):
 #TODO: let people know how many points they have
 #TODO: find way to incorporate username without pinging people
 #TODO: problem proposals (maybe not)
+#TODO: let people know if their score has been updated or that their solution was rejected (DMs)
 
 # run the bot
 bot.run(TOKEN)
