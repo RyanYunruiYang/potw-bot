@@ -1,5 +1,6 @@
 ---
 current-potw:
+  potw-id: 1
   field: Linguistics
   author: David Garsten '23
   proposed-date: 9/25/2021
@@ -46,6 +47,7 @@ current-potw:
 # past problems
 
 potw-example:
+  potw-id: 0
   field: CS
   author: Jewon Im 
   proposed-date: 9/25/2021
