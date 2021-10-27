@@ -1,16 +1,37 @@
----
 current-potw:
-  potw-id: 0
-  field: CS
-  author: Jewon Im 
-  proposed-date: 9/25/2021
-  effective-date: 9/25/2021
-  text: |
-    What does Python lack that most languages use at the end of each line?
-  simple-solution: True
-  solution: semicolon
-  points: 0
+  author: David Garsten '23
+  difficulty: 3
+  effective-date: 10/27/2021
+  field: Linguistics
+  points: 5
+  potw-id: 1
+  simple-solution: false
+  solution: 1G 2H 3E 4F 5I 6D 7J 8B 9A 10C
+  text: "Tone is very important in the East African language Maasai. Vowels written\
+    \ with an ac\xFAte accent have high tone, those with a gr\xE0ve accent have low\
+    \ tone, and those without an accent have mid tone.\n\n(Pronunciation guide: \n\
+    \u0254 = \"awe\"\n\u025B = \"let\"\n\u026A = \"bit\"\n\u028A = \"hood\"\n\u014B\
+    \ = \"song\")\n\nHere are some sentences in Maasai: \n\n1) \xE9\xF3sh \u0254lm\u028A\
+    ran\xED \u0254l\xE1s\u028Ar\xE1\u026A\u0300\n2) \xE1ad\u0254\u0301l \u0254las\u028A\
+    r\xE1\u026A\u0301\n3) \xE1a\xF3sh \u0254lm\u028Aran\xED\n4) \u026A\u0301d\u0254\
+    \u0301l \u0254lm\u028Ar\xE1n\xEC\n5) \xED\xF3shok\xED \u0254lm\u028Ar\xE1n\xEC\
+    \ \u0254l\xE1s\u028Ar\xE1\u026A\u0300\n6) \xE1d\xFA\u014Bok\xED \u0254lm\u028A\
+    r\xE1n\xEC \u0254lc\u025Bt\xE1\n7) \xE1d\xFA\u014B \u0254lc\u025Bt\xE1\n8) \xE1\
+    adu\u014Bok\xED \u0254lm\u028Aran\xED \u0254lc\u025Bt\xE1\n9) \xE1ad\xFA\u014B\
+    \ \u0254lm\u028Aran\xED\n10) \xE9d\xFA\u014B \u0254lm\u028Aran\xED\n\nMatch them\
+    \ to their English translations: \n\nA) The warrior cuts me.\nB) The warrior cuts\
+    \ the tree for me.\nC) The warrior cuts it.\nD) I cut the tree for the warrior.\n\
+    E) The warrior hits me.\nF) You see the warrior.\nG) The warrior hits the snake.\n\
+    H) The snake sees me.\nI) You hit the snake for the warrior.\nJ) I cut the tree."
+potw-0:
+  author: Jewon Im
   difficulty: 1
+  effective-date: 09/25/2021
+  field: CS
+  points: 0
+  potw-id: 0
+  simple-solution: true
+  solution: semicolon
+  text: 'What does Python lack that most languages use at the end of each line?
 
-# past problems
-
+    '

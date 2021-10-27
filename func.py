@@ -45,7 +45,6 @@ def assign_points(userID, points):
             user_in_leaderboard = True
 
     if user_in_leaderboard == False:
-
         person = {'points': int(points), 'solved-list': [current_potw['potw-id']], 'userID': userID, 'username': f"{user.name}#{user.discriminator}"}
         leaderboard.append(person)
 
