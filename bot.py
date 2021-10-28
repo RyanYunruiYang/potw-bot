@@ -59,21 +59,17 @@ async def submit(ctx):
 @commands.has_role('organizer')
 async def announce_potw(ctx):
     channel = bot.get_channel(891482447580123137) #announcements
-    await ctx.channel.send(f"""Field: {current_potw['field']}
-    Problem ID: {current_potw['potw-id']}
-    Author: {current_potw['author']}
-    Difficulty: {current_potw['difficulty']} jalapeños
-    Problem statement: {current_potw['text']}""")
+    await ctx.channel.send(f"Field: {current_potw['field']}\nProblem ID: {current_potw['potw-id']}\nAuthor: {current_potw['author']}\nDifficulty: {current_potw['difficulty']} jalapeños\nProblem statement: {current_potw['text']}")
 
 
 @bot.command(brief="Assign points (user ID, points to assign)")
 @commands.has_role('organizer')
-async def assign_point(ctx, user: discord.User, pointvalue):
+async def assign_point(ctx, user: discord.User, pointvalue, *, msg):
     # add point value to database
     func.assign_points(user.id, pointvalue)
     await ctx.channel.send(f"{pointvalue} points has been assigned to <@{user.id}>")
 
-    await user.send(f"You have just been awarded {pointvalue} points!")
+    await user.send(f"You have just been awarded {pointvalue} out of {current_potw['points']} possible points! " + str(msg))
 
 
 @bot.command(brief="Send a rejection message to the user")
@@ -153,6 +149,10 @@ async def create_potw(ctx):
         yaml.dump(potw_contents, f)
 
     await ctx.channel.send("New POTW has successfully been imported and put into use.")
+
+@bot.command(brief="send any DM message to a user")
+async def dm_user(ctx, user:discord.User, *, msg):
+    await user.send(msg)
 
 '''
 @bot.command()
