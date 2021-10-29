@@ -22,7 +22,7 @@ def check_solved(user, potwID):
     return False
 
 def assign_points(userID, points):
-    user = bot.fetch_user(int(userID))
+    # user = await bot.fetch_user(int(userID))
 
     with open('leaderboard.yaml', 'r') as f:
         leaderboard = yaml.load(f, Loader = yaml.FullLoader)
@@ -45,7 +45,7 @@ def assign_points(userID, points):
             user_in_leaderboard = True
 
     if user_in_leaderboard == False:
-        person = {'points': int(points), 'solved-list': [current_potw['potw-id']], 'userID': userID, 'username': f"{user.name}#{user.discriminator}"}
+        person = {'points': int(points), 'solved-list': [current_potw['potw-id']], 'userID': userID}
         leaderboard.append(person)
 
     with open('leaderboard.yaml', 'w') as f:

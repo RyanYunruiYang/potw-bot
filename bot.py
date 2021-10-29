@@ -151,6 +151,7 @@ async def create_potw(ctx):
     await ctx.channel.send("New POTW has successfully been imported and put into use.")
 
 @bot.command(brief="send any DM message to a user")
+@commands.has_role('organizer')
 async def dm_user(ctx, user:discord.User, *, msg):
     await user.send(msg)
 
