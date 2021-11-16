@@ -35,7 +35,7 @@ def assign_points(userID, points):
 
     for person in leaderboard:
         if str(person['userID']) == str(userID):
-            person['points'] = float(person['points']) + float(points)
+            person['points'] = int(person['points']) + int(points)
 
             if check_solved(userID, current_potw['potw-id']) == False:
                 solved_list = person['solved-list']
@@ -45,7 +45,7 @@ def assign_points(userID, points):
             user_in_leaderboard = True
 
     if user_in_leaderboard == False:
-        person = {'points': float(points), 'solved-list': [current_potw['potw-id']], 'userID': userID}
+        person = {'points': int(points), 'solved-list': [current_potw['potw-id']], 'userID': userID}
         leaderboard.append(person)
 
     with open('leaderboard.yaml', 'w') as f:
