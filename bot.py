@@ -26,19 +26,16 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # user commands
+
 @bot.command(brief="Print the current POTW")
 async def potw(ctx):
-    await ctx.channel.send(f"Field: {current_potw['field']}\nProblem ID: {current_potw['potw-id']}\nAuthor: {current_potw['author']}\nDifficulty: {current_potw['difficulty']} jalapeños\nProblem statement: {current_potw['text']}")
+    await ctx.channel.send(f"Field: {current_potw['field']}\nProblem ID: {current_potw['potw-id']}\nAuthor: {current_potw['author']}\nEffective Date: {current_potw['effective-date']}\nDifficulty: {current_potw['difficulty']} jalapeños\nProblem statement: {current_potw['text']}")
 
 
 @bot.command(brief="Submit answer to the current POTW")
 async def submit(ctx):
     submitter = ctx.author.id
     answer = str(ctx.message.content)
-
-    if func.check_solved(submitter, current_potw['potw-id']) == True:
-        await ctx.channel.send("You have alreay solved this week's problem!")
-        return
 
     if current_potw['simple-solution'] == True:
         if answer == current_potw['solution']:
@@ -53,29 +50,14 @@ async def submit(ctx):
         channel = bot.get_channel(899463961836142664) # organizer-only channel 
         await channel.send(f"From <@{submitter}>: " + str(answer))
 
+@bot.command(brief="Questions/comments? Send a message to the organizers")
+async def ask(ctx):
+    submitter = ctx.author.id
+    msg = str(ctx.message.content)
 
-# mod commands
-@bot.command(brief="Announce the current POTW to #potw")
-@commands.has_role('organizer')
-async def announce_potw(ctx):
-    channel = bot.get_channel(891482447580123137) #announcements
-    await ctx.channel.send(f"Field: {current_potw['field']}\nProblem ID: {current_potw['potw-id']}\nAuthor: {current_potw['author']}\nDifficulty: {current_potw['difficulty']} jalapeños\nProblem statement: {current_potw['text']}")
-
-
-@bot.command(brief="Assign points (user ID, points to assign)")
-@commands.has_role('organizer')
-async def assign_point(ctx, user: discord.User, pointvalue, *, msg):
-    # add point value to database
-    func.assign_points(user.id, pointvalue)
-    await ctx.channel.send(f"{pointvalue} points has been assigned to <@{user.id}>")
-
-    await user.send(f"You have just been awarded {pointvalue} out of {current_potw['points']} possible points! " + str(msg))
-
-
-@bot.command(brief="Send a rejection message to the user")
-@commands.has_role('organizer')
-async def reject_solution(ctx, user: discord.User):
-    await user.send("Sorry, your solution to the current POTW has been rejected by the mods. Please try again, or contact Jewon or Ryan for more info.")
+    await ctx.channel.send("Message was sent to mods.")
+    channel = bot.get_channel(899463961836142664) # organizer-only channel 
+    await channel.send(f"From <@{submitter}>: " + str(msg))
 
 
 @bot.command(brief="Print leaderboard") # top 10 people only + user
@@ -95,6 +77,20 @@ async def leaderboard(ctx):
 
     await ctx.channel.send(message)
 
+
+
+# mod commands
+
+@bot.command(brief="Assign points (user ID, points to assign)")
+@commands.has_role('organizer')
+async def assign_point(ctx, user: discord.User, pointvalue, *, msg):
+    # add point value to database
+    func.assign_points(user.id, pointvalue)
+    await ctx.channel.send(f"{pointvalue} points has been assigned to <@{user.id}>")
+
+    await user.send(f"You have just been awarded {pointvalue} out of {current_potw['points']} possible points! " + str(msg))
+
+
 @bot.command(brief="Create a new POTW")
 @commands.has_role('organizer')
 async def create_potw(ctx):
@@ -108,7 +104,7 @@ async def create_potw(ctx):
         'text': str(current_potw['text']),
         'simple-solution': bool(current_potw['simple-solution']),
         'solution': str(current_potw['solution']),
-        'points': int(current_potw['points']),
+        'points': float(current_potw['points']),
         'difficulty': int(current_potw['difficulty'])
     }
 
@@ -140,7 +136,7 @@ async def create_potw(ctx):
     current_potw['solution'] = str((await bot.wait_for('message', check=check)).content)
 
     await ctx.channel.send("Enter point value:")
-    current_potw['points'] = int((await bot.wait_for('message', check=check)).content)
+    current_potw['points'] = float((await bot.wait_for('message', check=check)).content)
 
     await ctx.channel.send("Enter difficulty (# of jalapeños, 1-4):")
     current_potw['difficulty'] = int((await bot.wait_for('message', check=check)).content)
@@ -150,17 +146,49 @@ async def create_potw(ctx):
 
     await ctx.channel.send("New POTW has successfully been imported and put into use.")
 
-@bot.command(brief="send any DM message to a user")
+
+@bot.command(brief="Edit the current POTW; however, if you're making major changes, creating a new POTW would be better")
+@commands.has_role('organizer')
+async def edit_potw(ctx, arg, *, content):
+    if arg == 'field':
+        potw_contents['current-potw']['field'] = str(content)
+        await ctx.channel.send("Field has been edited.")
+    elif arg == 'author':
+        potw_contents['current-potw']['author'] = str(content)
+        await ctx.channel.send("Author has been edited.")
+    elif arg == 'effective-date':
+        potw_contents['current-potw']['effective-date'] = str(content)
+        await ctx.channel.send("Date has been edited.")
+    elif arg == 'text':
+        potw_contents['current-potw']['text'] = str(content)
+        await ctx.channel.send("Statement has been edited.")
+    elif arg == 'simple-solution':
+        potw_contents['current-potw']['simple-solution'] = bool(content)
+        await ctx.channel.send("Simpleness has been edited.")
+    elif arg == 'solution':
+        potw_contents['current-potw']['solution'] = str(content)
+        await ctx.channel.send("Solution has been edited.")
+    elif arg == 'points':
+        potw_contents['current-potw']['points'] = float(content)
+        await ctx.channel.send("Number of points has been edited.")
+    elif ag == 'difficulty':
+        potw_contents['current-potw']['difficulty'] = int(content)
+        await ctx.channel.send("Difficulty has been edited.")
+    else:
+        await ctx.channel.send("Check spelling?")
+
+
+@bot.command(brief="Print solution of the current POTW")
+@commands.has_role('organizer')
+async def solution(ctx):
+    await ctx.channel.send(current_potw['solution'])
+
+
+@bot.command(brief="Send any DM message to a user")
 @commands.has_role('organizer')
 async def dm_user(ctx, user:discord.User, *, msg):
     await user.send(msg)
-
-'''
-@bot.command()
-async def test(ctx, userID):
-    user = await bot.fetch_user(int(userID))
-    await ctx.channel.send(f"{user.display_name}\n{user.name}\n{user.discriminator}")
-'''
+    await ctx.channel.send("DM sent.")
 
 # run the bot
 bot.run(TOKEN)
