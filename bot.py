@@ -130,6 +130,11 @@ async def coolbot(ctx):
 
     await ctx.channel.send(message)
 
+@bot.command(brief="Sid the Science Kid")
+async def sidiscool(ctx):
+    message = "Correct."
+    await ctx.channel.send(message)
+
 
 @bot.command(brief="Create a new POTW")
 @commands.has_role('organizer')
