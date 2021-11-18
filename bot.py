@@ -70,9 +70,9 @@ async def leaderboard(ctx):
 
     for i in range(0, len(sorted_leaderboard)):
         if i < 10:
-            message += f"{i+1} | `<@{sorted_leaderboard[i]['userID']}>` with {sorted_leaderboard[i]['points']} points\n"
+            message += f"{i+1} | <@{sorted_leaderboard[i]['userID']}> with {sorted_leaderboard[i]['points']} points\n"
         elif ctx.message.author.id == sorted_leaderboard[i]['userID']:
-            message += f".\n.\n.\nYOU: {i+1} | `<@{sorted_leaderboard[i]['userID']}>` with {sorted_leaderboard[i]['points']} points"
+            message += f".\n.\n.\nYOU: {i+1} | <@{sorted_leaderboard[i]['userID']}> with {sorted_leaderboard[i]['points']} points"
             break
 
     await ctx.channel.send(message)
