@@ -66,7 +66,7 @@ async def leaderboard(ctx):
         leaderboard = yaml.load(f, Loader = yaml.FullLoader)
     sorted_leaderboard = sorted(leaderboard, key=lambda d: d['points'], reverse=True)
 
-    message = ""
+    message = "```"
 
     for i in range(0, len(sorted_leaderboard)):
         if i < 10:
@@ -74,7 +74,8 @@ async def leaderboard(ctx):
         elif ctx.message.author.id == sorted_leaderboard[i]['userID']:
             message += f".\n.\n.\nYOU: {i+1} | <@{sorted_leaderboard[i]['userID']}> with {sorted_leaderboard[i]['points']} points"
             break
-
+        
+    message += "```"
     await ctx.channel.send(message)
 
 
