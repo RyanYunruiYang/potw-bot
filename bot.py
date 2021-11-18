@@ -90,6 +90,26 @@ async def assign_point(ctx, user: discord.User, pointvalue, *, msg):
 
     await user.send(f"You have just been awarded {pointvalue} out of {current_potw['points']} possible points! " + str(msg))
 
+@bot.command(brief="Bad Bot")
+async def badbot(ctx):
+    with open('botpoints.txt', 'r+') as f:
+        points = f.readlines()[0]
+    
+    if points !="":
+        points = int(points)
+    else:
+        points = 0
+    
+    points-=5
+
+    message = "OMG I AM SO BAD!!!!\nBot's current points are: "+str(points)
+
+    with open('botpoints.txt', 'w') as f:
+        f.truncate(0)
+        f.write(str(points))
+
+    await ctx.channel.send(message)
+
 
 @bot.command(brief="Create a new POTW")
 @commands.has_role('organizer')
