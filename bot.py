@@ -110,6 +110,26 @@ async def badbot(ctx):
 
     await ctx.channel.send(message)
 
+@bot.command(brief="Cool Bot")
+async def coolbot(ctx):
+    with open('botpoints.txt', 'r+') as f:
+        points = f.readlines()[0]
+    
+    if points !="":
+        points = int(points)
+    else:
+        points = 0
+    
+    points+=5
+
+    message = "YAYE IKR IM SO COOOOL!!!!\nBot's current points are: "+str(points)
+
+    with open('botpoints.txt', 'w') as f:
+        f.truncate(0)
+        f.write(str(points))
+
+    await ctx.channel.send(message)
+
 
 @bot.command(brief="Create a new POTW")
 @commands.has_role('organizer')
