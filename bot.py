@@ -70,11 +70,11 @@ async def leaderboard(ctx):
 
     for i in range(0, len(sorted_leaderboard)):
         if i < 10:
-            message += f"{i+1} | <@{sorted_leaderboard[i]['userID']}> with {sorted_leaderboard[i]['points']} points\n"
+            message += f"{i+1} | <{client.get_user(sorted_leaderboard[i]['userID'])}> with {sorted_leaderboard[i]['points']} points\n"
         elif ctx.message.author.id == sorted_leaderboard[i]['userID']:
-            message += f".\n.\n.\nYOU: {i+1} | <@{sorted_leaderboard[i]['userID']}> with {sorted_leaderboard[i]['points']} points"
+            message += f".\n.\n.\nYOU: {i+1} | <{client.get_user(sorted_leaderboard[i]['userID'])}> with {sorted_leaderboard[i]['points']} points"
             break
-        
+
     message += "```"
     await ctx.channel.send(message)
 
@@ -134,6 +134,11 @@ async def coolbot(ctx):
 @bot.command(brief="Sid the Science Kid")
 async def sidiscool(ctx):
     message = "Correct."
+    await ctx.channel.send(message)
+
+@bot.command(brief="Sidharth Vader")
+async def sidisnotcool(ctx):
+    message = ":("
     await ctx.channel.send(message)
 
 
